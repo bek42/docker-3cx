@@ -1,9 +1,11 @@
 #!/bin/bash
-  
-VERSION=18.0.8.935
-USER=farfui
 
-docker rmi ${USER}/3cx:${VERSION}
+set -e  # Exit script if any command fails
+
+VERSION=18.0.8.935
+USER=bbh02  # Your Docker username
+
+docker rmi ${USER}/3cx:${VERSION} || true  # Ignore errors if the image does not exist
 
 docker build \
         --force-rm \
@@ -35,3 +37,5 @@ docker push ${USER}/3cx:${VERSION}
 docker rm 3cx_stage1_c
 
 docker rmi 3cx_stage1
+
+echo "Build and push completed successfully."
